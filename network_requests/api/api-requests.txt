@@ -1,0 +1,74 @@
+##########
+REST API'S
+############################
+I.	ABOUT API AND REST API
+II.	API DATA FORMATS
+III.	API ENDPOINTS: URI
+IV.	REQUEST FOR API DATA
+############################
+
+#########################	
+I.	ABOUT REST(ful) API
+#########################
+
+API is an application Program Interface. The waiter that delivers the request from the client to the server in a specified format and returns information to the client in a specified format.
+
+It structures the request-respons cycle.
+
+API ONLINE DIRECTORY
+
+https://www.programmableweb.com/
+
+######################
+II.	API DATA FORMATS
+######################
+
+XML: Extended Markup Language. Holds key-value pairs in 
+<key>value</key> format.
+
+JSON: Javascript Object Notation. Holds key-value pairs into objects, with everything stored as a string:
+{"key": "value"}
+
+You can use to Chrome Extension JSON viewer to inspect API data in more readable color-coded format.
+
+########################
+III.	API ENDPOINTS: URI
+########################
+
+Endpoints are the URL/URI of resources on the service that can be accessed by the client application through the formatting provided by the REST API.
+
+NOTE: URI is a uniform resource identifier. The identifier can be a name or location, or both. URL is uniform resource locator, thus a subset of URI. Thus a server resource can be identified by its name and/or its location on the server.
+
+######################
+IV.	REQUEST API DATA
+######################
+
+Check the documentation for each API to see which type of data you are working with: an array, an object, an array of objects.
+
+NOTE: When requesting data from a server you usually receive the data as a string. To convert it into a javascript object, use JSON.parse().
+
+Requests can be made through a direct link in the browser and structuring the data with a Chrom extension such as JSON viewer.
+
+API REQUESTS NODEJS
+
+	npm install --save request request-promise
+
+The request package can be used to create a js file to run api requests or to incorporate it into an Express app.
+
+Two syntaxes are available: using a callback function or using ES6 Promises.
+
+	request(url, function(error, response, body){})
+	
+	rp(url).then((body) =>{}).catch((err) =>{})
+
+See api_request-example for jsonPlaceholder API example.
+
+The data from the server reponse has a HEADER and a BODY, just as the http request TO the server. To access the data we need to look into the BODY.
+
+ 
+API AUTHENTICATION
+
+Through clientId and tokens. See documentation for each API. You basically add a token string to each HTTP request that identifies the client.
+
+
+

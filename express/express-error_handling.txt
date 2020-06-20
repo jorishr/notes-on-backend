@@ -1,0 +1,158 @@
+######################
+EXPRESS ERROR HANDLING
+############################################
+I.	BUILT-IN ERROR HANDLING
+	A.	SYNCHRONOUS v ASYNCHRONOUS TASKS
+	B.	CUSTOM MIDDLEWARE ERROR HANDLING
+	C.	ORGANIZING ERROR HANDLING CODE
+II.	ASYNC/AWAIT ERROR HANDLING
+############################################
+
+#############################
+I.	BUILT-IN ERROR HANDLING
+#############################
+
+	A.	SYNCHRONOUS v ASYNCHRONOUS TASKS
+
+You can define error handling manually for each route through the 	
+	if(err){} statements or 
+	try{} catch(err)}{res.status(500).send('internal server 	error');
+
+But this is hard to maintain and require writing a lot of duplicate code.
+
+It is important to note that Express catches all the errors that occur while running route handlers and middleware that occur in synchronous code. Thus if synchronous code throws an error, then Express will catch and process it.
+
+Asynchronous code, however, requires extra work. Database operations, working with the filesystem etc., will take time to complete and are thus handled as ASYNCHRONOUS by NodeJS and the browser.
+
+To let EXPRESS handle errors that occur inside those asynchronous tasks you need to use an extra parameter NEXT and use the next() function to pass errors to EXPRESS.
+
+
+app.get("/", function (req, res, next) {
+  fs.readFile("/file-does-not-exist", function (err, data) {
+    if (err) {
+      next(err); // Pass errors to Express.
+    }
+    else {
+      res.send(data);
+    }
+  });
+});
+
+or catching 404 errors with HTTP-ERRORS package
+
+app.use(function(req, res, next) {
+	next(createError(404));
+}); 
+
+In Express, 404 NOT FOUND responses are not the result of an error, so the error-handler middleware will not capture them by default.
+
+This behavior is because a 404 response simply indicates the absence of additional work to do. All middleware functions and routes are checked out and none of them responded. 
+
+If you pass an error to next() and you do not handle it in a custom error handler, it will be handled by the built-in error handler.
+
+The error will be written to the client with the stack trace. 
+
+The next step is to setup custom ERROR HANDLING MIDDLEWARE.
+
+
+	B.	CUSTOM ERROR HANDLING MIDDLEWARE
+
+Error handling middleware functions take FOUR arguments and will only get called if an error occurs. 
+
+app.use(function (err, req, res, next) {
+ 	res.locals.error = err;
+  	res.status(err.status || 500);
+	res.render('error');
+});
+
+You can add other things like for example: 	
+
+	console.error(err.stack);
+
+The console.error contains the error stack or stack trace.
+
+Through the res.locals we make the err object available in the route response object. They can then be rendered in the view page for errors.
+
+Responses from within a middleware function can be in any format, such as an HTML error page, a simple message, or a JSON string.
+
+The res.status will either be the http response status or the default 500 server error code.
+
+IMPORTANT! 
+
+In the app.js this ERROR HANDLING MIDDLEWARE needs to come AFTER all route calls.
+
+REMEMBER THE PROCESS:
+
+	- CATCH or THROW your Error with a useful message
+	- pass the err parameter into next()
+	- centralize your errors in error-handling middleware
+
+EXAMPLE
+	app.get('*', function(req, res, next) {
+let err = new Error(`${req.ip} tried to reach ${req.originalUrl}`); 
+err.statusCode = 404;
+err.shouldRedirect = true;
+
+NOTE ABOUT shouldRedict: set this to true and use it as condition in the middleware:
+
+	if (!err.statusCode){err.statusCode = 500;}; 
+	if (err.shouldRedirect) {
+    		res.render('error')
+    	} else {
+        res.status(err.statusCode).send(err.message);
+
+If shouldRedirect is not defined in the error, send the original err data.
+If no err.statusCode is set, set the generic 500;
+
+
+	C.	ORGANIZING ERROR HANDLING CODE
+
+You can write a seperate error.js file with multiple functions for different type of errors.
+
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
+
+function logErrors (err, req, res, next) {
+  console.error(err.stack)
+  next(err)
+}
+
+Notice that when not calling “next” in a custom error-handling function, you are responsible for writing (and ending) the response. Otherwise those requests will “hang” and will not be eligible for garbage collection that is now done by the default express error handling.
+
+Client error handling for XHR requests:
+
+	function clientErrorHandler (err, req, res, next) {
+ 		if (req.xhr) {
+    			res.status(500).send({ error: 'Something 						failed!' })
+  		} else {
+ 			next(err)
+  		}
+
+Catch all error handler:
+
+function errorHandler (err, req, res, next) {
+  	res.status(500)
+  	res.render('error', { error: err })
+}
+
+#################
+II.	ASYNC/AWAIT
+#################
+
+Express was mostly written 2011-2014, before ES6, and it still lacks a good answer for how to handle the async/await keywords. We can write the above code in async/await manner.
+
+With a little helper function, you can tie async/await errors in with Express error handling middleware.
+
+Remember that async functions return promises, so you need to make sure to .catch() any errors and pass them to next():
+
+function wrapAsync(fn){
+	return (req, res, next) => {
+		fn(req, res, next).catch(next);
+	};
+};
+
+app.get('/', wrapAsync(async function(req,res){
+	await new Promise(...)
+	...	
+}))

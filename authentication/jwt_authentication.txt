@@ -1,0 +1,79 @@
+###############
+JSON WEB TOKENS 
+#######################################
+I.	TOKEN BASED AUTHENTICATION
+II.	EXAMINING JWT
+III.	SESSIONS AUTH VS TOKEN BASED AUTH
+#######################################
+
+REFERENCES: 
+- https://jwt.io/
+- https://github.com/alex996/presentations/blob/master/auth.md
+
+################################
+I.	TOKEN BASED AUTHENTICATION
+################################
+
+A.	PROCESS
+- user sends credentials (username, password) to the server
+- server verifies credentials against database
+- server generates a TEMPORARY TOKEN that includes the USER DATA and sends the token in the response header or body.
+- the temp token is STORED in client storage and send with each subsequent http request
+- server verifies the token and grants access
+- when user is logout the token is cleared from client storage
+ 
+
+B.	STATELESS
+Tokens are NOT stored on the server, only generated once and then stored on the client-side.
+
+Each token is SIGNED by a secret to avoid tampering on the client-side. This is checked by the server the guarantee the token can be trusted.
+
+The token can be opaque (as a sessionID) but when using JWT the token is SELF-CONTAINED. It contains the user data embedded into the payload of the token (see below).
+
+
+###################
+II.	EXAMINING JWT
+###################
+
+A.	ABOUT JWT
+
+JSON WEB TOKEN is an open source standard for authorization and info-exchange.
+
+It is compact, self-contained and URL-safe and signed with a SIGNATURE that is either SYMMETRIC (secret) or a public/private key pair, thus ASYMMETRIC. 
+
+It is not encrypted as the client-side needs to be able to access the payload data, thus there is no secure way to store the token on the client side. Thus no sensitive data should be stored in the JWT (no passwords for example). 
+
+When a request is made by the user, the server verifies the JWT token it has signed itself earlier. If correct, it can deserialize the token and access the user-info.
+
+Tokens should be short-lived. Since they cannot be stored securely, they have to be refreshed at an interval.
+
+B.	JWT TOKEN COMPOSITION
+
+'HTTP/1.1 200 OK
+Content-type: application/json
+Authorization: Bearer
+eyffsfsskdfjsslsjfsls.eyddfsfpskpfpwpeweepw.eopwweopwpoeopwopoe'
+
+It has three parts seperated by a .: header(metadata), payload(claims or data-attributes) and signature. 
+
+The token is URL ENCODED thus you can use the ATOB function in javascript to decode the content. Note that if the token starts with 'ey' you can infer it contains JSON data object as 'ey' in url encoding referes to "{".
+
+atob(<token-header>);		//-> {"alg":"HS256", "typ": "JWT"}
+atob(<token-payload>);	//-> {"sub":"", "name":"", "iat": , "exp":""}
+
+The payload consist of:
+- a subject, usually the userID; 
+- other claims or data-attributes such as username; 
+- issued at 'iat': in seconds
+- when the token expires exp: ''
+
+C.	REFRESH TOKEN
+Once a JWT is created, it does not expire unless you give it an expiration date. This means that a user that has logged in once, will be forever able to access the app data with that same token. This is not secure and therefore the initial tokens are set expire after x minutes.
+
+A  refresh token is used to renew the access token.
+
+The refresh token is stored seperately, thus you revoke the base token every couple of minutes and the user needs to present the refresh token to continue to use the app.
+
+The problem of a stolen token persists but you can invalidate the refresh token by creating a logout route.
+
+

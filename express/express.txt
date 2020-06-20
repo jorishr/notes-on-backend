@@ -1,0 +1,157 @@
+#########################
+EXPRESS SERVER FRAMWEWORK
+###########################################
+I.	BASIC SERVER SETUP
+II.	EXPRESS GENERATOR
+III.	MVC:VIEW 
+		A.	EMBEDDED JS AND TEMPLATES
+		B.	SPLITTING UP HTML
+		B.	STATIC FILES
+IV.	DATABASE CONFIG
+###########################################
+
+#################
+I.	BASIC SETUP
+#################
+
+NPM dependencies
+
+npm install --save / npm i express 
+
+	ejs 			// view engine
+	body-parser 	
+	request request-promise
+	method-override	// to account for PUT & DELETE REQ in HTML 					form method attribute
+
+In a app.js file, write the server code:
+	
+A-Require in the packages and setup (local) server
+
+	const path = require('path'), (nodeJs native package)
+		express 	= require('express'),
+		app 		= express(),
+		port		= portNumber;
+	
+	app.listen(port, () => 
+		console.log(
+			`Example app listening on port ${port}!`)
+	);
+
+B-Set the static folder path. If you don't use view engine and just serve plain html also indicate where the views directory is located.
+	
+	app.use(express.static(
+		path.join(__dirname, 'public')
+	));
+	app.use(express.static(path.join(__dirname, 'app/views')));
+	
+C-Use the BodyParser to make the body data available as a JS object: req.body
+	
+	app.use(bodyParser.urlencoded({extended: true}));
+
+D-Set the views folder path and view engine
+
+	app.set('views', path.join(__dirname, 'views'));
+	app.set('view engine', 'ejs');
+
+#######################
+II.	EXPRESS GENERATOR
+#######################
+
+Specify the view engine, the css stylesheet engine, and gitignore file.
+
+npx express-generator --view=<engine> --css=sass --git <dir>
+
+NOTE: the --css flag can be ommitted because the sass compilation within node/express is created for dev use only. 	Use Gulp or Webpack to handle that task. 	
+	
+The view files and basic server is pre-configured to run on localhost:3000
+
+###############
+III.	MVC: VIEW 
+###############
+
+Express is capable of handling SERVER-SIDE TEMPLATE ENGINES. Template engines allow us to add data to a view, and generate HTML dynamically.
+
+A template engine enables you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client. 
+
+A.	EMBEDDED JS AND OTHER TEMPLATING ENGINES
+
+REACT
+
+You can render a React application server-side, using the express-react-views package.
+
+	app.set('view engine', 'jsx');
+	app.engine('jsx', require('express-react-			
+		views').createEngine());
+
+In the views folder you have the .jsx files that get rendered when you call them:
+
+	app.get('/page', (req,res) => {res.render('jsx-page')});
+
+EMBEDDED JS
+
+In order to render pages, you need embeded js. Express will look in the ./views folder for .ejs files to render. Once specified the view-engine, you can leave out the ejs extension:
+
+Inside the EJS you can use plain HTML and JS with variables and function that hold and use data from the database.
+
+	<%= js-here %>	//	gets rendered on the html page
+	<%	%>		//	no output in html
+	<%-	%>		// 	outputs the unescaped value 
+	
+	NOTE: %> all ending tags are plain
+
+
+B.	SPLIT UP HTML
+
+In the view folder create a subfolder partials. This will contain a header.ejs and footer.ejs. Just as in Wordpress you include those in the individual pages that are being rendered. 
+
+This way you don't have to always include manually the doctype, the script tags and css link tags (except for a landing page that may have different functionality).
+
+To include in the page files:
+
+	<% include partials/_header %>
+	<% include partials/_footer %>
+
+NOTE: absolute path for the css link tag "/main.css"
+
+C.	SERVING STATIC FILES
+
+Static files can be loaded by using express.static and specifying the root directory of those files.
+ 
+	app.use(express.static('root', [options]))
+	app.use(express.static('.', [options]))
+	app.use(express.static('./images', [options]))
+
+NOTE: Express looks up the files in the order in which you set the static directories with the express.static middleware function.
+	
+You can then load those files from the browser:
+	
+	http://localhost:3000/index.html
+	http://localhost:3000/images/dog.jpg
+
+By default Express looks for folders relative to the NPM root folder of the app. If you want to run the express app.js from another folder use PATH:
+
+	app.use(express.static(path.join(__dirname, 'public')));
+
+A common folderstructure is to use a "public" folder where the main html, css and image files live.
+
+OPTIONAL VIRTUAL PATH PREFIX
+
+You can add a path that does not actually exist in the file system:
+
+ 	app.use('/dummy', express.static('public', [options]))
+	http://localhost:3000/dummy/index.html
+
+#########################
+IV.	DATABASE CONNECTION
+#########################
+
+See docs for MongoDB/Mongoose or MySQL/Serialize.
+
+What you need to do in express is establish a connection with the database. For MongoDB this is done with the MONGOOSE package:
+
+	mongoose.connect(process.env.DB_CONN, {useNewUrlParser: 			true});
+	
+	db.on('error', console.error.bind(console, 'connection 	error:'));
+
+The environment variable is stored in the env file. Or you can simply use a string witht the URL of the DB.
+

@@ -1,0 +1,79 @@
+#######
+MONGODB
+#########################
+I.	ABOUT
+II.	DB SETUP
+III.	BASIC DB COMMANDS
+IV.	MONGODB vs MONGOOSE
+#########################
+
+###########
+I.	ABOUT
+###########
+
+Database is collection of data WITH an interface that allows us to interact with it and perform CRUD operations (create, read, update, delete).
+
+MONGODB is a non-relational database. It has no tables and you can nest data, plus not all objects need to have the same properties. It uses document collections.
+
+###########
+II.	SETUP
+###########
+
+See ide-local-setup windows.
+
+Basically it runs from c:\momgodb\bin with the DEAMON mongod.exe and the TERMINAL mongo.exe
+
+####################
+III.	BASIC COMMANDS
+####################
+SHOW ALL DBS
+
+show dbs 
+
+CREATE NEW DB
+
+Switch to the db and creates one if not existed
+
+	use <db-name>	
+		
+INSERT DATA INTO THE DB WITH A COLLECTION
+
+	db.<collection>.insert({dataObject})
+
+Note that queries in mongoDb are objects as well!
+
+LOOKUP EXISTING ENTRIES
+
+	show collections
+	
+	db.<collection>.find().pretty()	
+	
+	// shows all entries in collection in a readable format
+
+	db.<collection>.find({name:'max'})
+	
+UPDATE ENTRIES
+
+	db.<collection>.update({selectorObject}, {changeToObject})
+	
+	selectorObject: {name:'max'}
+	changeToObject: {$set: {breed: 'pastor aleman'}}
+
+IMPORTANT: if you don't use the $set: {} notation, the entire entry will be overwritten with the proposed change	
+
+DELETE ENTRIES
+
+	db.<collection>.remove({selector})
+
+	db.<collection>.drop()	// delete ALL entries
+
+################################
+IV.	MONGODB v MONGOOSE METHODS
+################################
+
+Mongoose method will combine many commands, such as findByIdAndRemove. But you can do this manually and will need to do so in EXPRESS the manual way sometimes:
+	
+	User.findById()
+	foundUser.remove()
+
+See mongoose doc for more details.

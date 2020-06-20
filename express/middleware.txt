@@ -1,0 +1,45 @@
+##########
+MIDDLEWARE
+############################
+I.	ABOUT MIDDLEWARE
+II.	LOGIN-PROTECTED ROUTES
+############################
+
+######################
+I.	ABOUT MIDDLEWARE
+######################
+
+Middleware are functions that are executed between the route request and the HTTP REQUEST HANDLER functions. It hooks into the routing process and is used to edit the request or response objects before it reaches the route handler code.
+
+Middleware can pre-written library code or your own custom code. Store it in a seperate file and import where necessary (in the route files).
+
+############################
+II.	LOGIN-PROTECTED ROUTES
+############################
+
+Routes that are only accesible to logged in users. This is accomplished by adding MIDDLEWARE. 
+
+	router.get('/new', middleware, (req, res) => {})
+
+Middleware can pre-written library code or your own custom code. Store it in a seperate file and import where necessary (in the route files).
+
+	middlewareObj = {};
+
+	middlewareObj.isLoggedIn = function (req, res, next){
+    		if(req.isAuthenticated()){
+        	return next();
+    	};
+    	res.redirect('/login');
+	};
+
+	module.exports = middlewareObj;
+
+NOTE 
+
+Always call next() at the end of our middleware function, to pass the execution to the next middleware or route handler, unless we want to prematurely end the response, and send it back to the client.
+
+The return next() is calling the next middleware functions or the HANDLER functions.
+
+To check whether autentication is true use the passport method is.Authenticated on the http request object.
+
+If there is no authentication present, redirect to to the login form.

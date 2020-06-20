@@ -1,0 +1,66 @@
+################################
+LOGGING HTTP REQUESTS IN EXPRESS 
+################################
+
+PACKAGES
+
+Express generator comes with MORGAN pre-installed. An alternative would be WINSTON.
+
+SETUP
+	var logger = require('morgan');
+	app.use(logger('<format>', options));
+
+FORMATS
+	
+'dev'
+
+Concise output colored by response status for development use. 
+
+The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes. 
+
+'common' and 'combined'
+
+Standard Apache common/combined log output.
+
+####################
+A.	LOG TO FILE(S)
+####################
+
+Write logs to a file.
+
+	var fs = require('fs')
+
+	//	create a write stream (in append mode)
+
+	var accessLogStream = 				    		
+		fs.createWriteStream(path.join(__dirname, 							'access.log'), { flags: 'a' })
+	//	append mode (instead of overwriting existing entries)
+	
+	//	setup the logger
+	
+	app.use(morgan('combined', { stream: accessLogStream }))
+
+Rotate log files (file/day)
+
+Simple app that will log all requests in the Apache combined format to one log file per day in the log/ directory using the rotating-file-stream module.
+
+	var rfs = require('rotating-file-stream')
+
+	// create a rotating write stream
+
+	var accessLogStream = rfs('access.log', {
+  		interval: '1d', //	rotate daily
+  		path: path.join(__dirname, 'log')})
+	
+	app.use(morgan('combined', { stream: accessLogStream }))
+
+################################
+B.	DUAL LOGGING: CONSOLE+FILE
+################################
+
+DUAL LOGGING: CONSOLE+FILE
+
+	app.use(logger('dev))
+	app.use(logger('common'), {
+		stream: fs.createWriteStream(path.join(__dirname, 				'access.log'), { flags: 'a' })
+	})

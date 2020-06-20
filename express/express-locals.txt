@@ -1,0 +1,24 @@
+##############
+APP/RES.LOCALS
+##############
+
+Once this object is set, the value of APP.locals properties persist throughout the life of the application, in contrast with RES.locals properties that are valid only for the lifetime of the request.
+
+You can access local variables in templates rendered within the application. This is useful for application-level data (names, titles, etc.) and helper functions (momentjs). 
+
+Example: make momentjs functions available on all views
+
+	app.locals.moment = require('moment'); 
+
+	In the view file:
+
+		<%= moment(campground.createdAt).fromNow() %> 
+
+Local variables are available in middleware via req.app.locals 
+	
+	in the middleware function: 
+		let month = req.app.locals.moment().month("January");
+
+RES.LOCALS
+
+An object that contains response local variables scoped to the request, and therefore available only to the view(s) rendered during that request / response cycle (if any). Otherwise equal to app.locals

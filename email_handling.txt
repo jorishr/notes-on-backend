@@ -1,0 +1,66 @@
+SENDING/RECEIVING EMAIL
+- send user feedback by email 
+	-> using templates/MIMES? what are they?
+https://www.youtube.com/watch?v=FrB8mxdWR7o&list=WL&index=60&t=16s
+- user form data to email (contact form)
+https://www.youtube.com/watch?v=JpcLd5UrDOQ
+-> do not follow the tutorial blindly, take out what you need from it
+-> add data validation to it, prevent spam (captcha?)
+
+- express, nodemailer, how to use your own mailserver?
+
+
+HTML EMAILS
+
+Lot's of different EMAIL clients that handle html in a different way means we cannot simply send hmtl + css files. It will have to be compiled into one single message.
+
+EMAIL SERVER: LOCAL SERVER VS CLOUD BASED EMAIL DELIVERY SERVICES
+
+You could handle everything yourself with your own mailserver but that needs to be maintained and is harder to scale. Mailgun and Sendgrid are the most popular options.
+
+HTML TEMPLATES WITH EXPRESS
+
+NOTE: Templating languages you can use ejs, mustache, underscore or handlebars.
+
+The HTML template is a seperate file that will be rendered by EXPRESS server and gets passed into it the variables (data-object) you specify there.
+
+
+EXPRESS CONFIGURATION
+
+IMPORTANT consideration: When using send.render() in a get or post request the ejs template gets rendered upon each requests. This puts load onto the server, which is fine for showing pages.
+
+But for email templates this is not necessary. You can compile the ejs code upon sever start-up just once, not every time a users signs up or asks for a password reset.
+
+You can do a manual compilation upon start-up and keep that code out of the post/get requests.
+
+	let mailTemplate = fs.readFileSync(
+					'/views/email/mail.ejs', 'UTF-8');
+	
+	let compiledMailTemplate = ejs.compile(mailTemplate);
+
+In the post/get request mailgun/sendgrid
+
+	html: compiledMailTemplate.render({dataObject_to_add})
+
+HTML STYLING IN EMAIL CLIENTS
+
+You cannot use classes nor <style> element. Everything has to be written as inline style which is hard to maintain and a pain to write. 
+
+The solution is to use an inline compiler that allows you write CSS in a seperate CSS file and use GULP to run a task that converts everything into one template file with inline styles defined.
+
+A good example of this approach is ZURB-INK, with generator-zurb-ink (requires bower pacakage manager).
+
+MJML: MAILJET MARKUP LANGUAGE
+
+MJML tags are high-level components that will be translated into responsive HTML by the MJML engine.
+
+
+
+CREATE TEMPLATE EXAMPLE
+
+https://medium.com/@mateuszsiara/responsive-emails-in-react-and-mjml-8a861668047 
+
+
+
+
+

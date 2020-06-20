@@ -1,0 +1,73 @@
+##############
+AUTHENTICATION
+#################################
+I.	ABOUT
+II.	STATEFUL AUTH WITH SESSIONS
+	A.	THE PROCESS
+	B.	STATEFULNESS
+	C.	SESSION ID AND COOKIES
+	D.	SECURITY CONCERNS
+III.	STATELESS AUTH WIH JWT (see JWT DOCS)
+##########################################
+
+
+###########
+I.	ABOUT
+###########
+
+There is authentication: verify IDENTITY, check whether the user is who he claims to be.(401 Unauthorized)
+
+Authorization: verify PERMISSIONS, whether an authenticated user can performs the action he wants to do.(403 Forbidden)
+
+SCHEME
+
+Can either be username/password scheme, certificate sheme or token scheme. 
+
+STATE
+
+Statefull authentication with SESSIONS and COOKIES
+Stateless authentication with JWT or OAuth, or others.
+
+
+##############
+II.	SESSIONS
+##############
+
+A.	THE PROCESS
+
+- user submits credentials (username + password) to server
+- server checks credentials against database
+- server creates a SESSION + sends a COOKIE with SESSIONID
+- COOKIE is send by the user in each subsequent user request 
+- server VALIDATES COOKIE against the SESSION STORE and grants appropriate access (AUTHORIZATION)
+- when user logs out, server DESTROYS SESSION & CLEARS COOKIE
+
+B.	STATEFULNESS
+Each session that is created has an ACTIVE state that needs to be STORED in either MEMONRY (file system of the server), DATABASE or CACHE (e.g.,Redis).
+
+C.	SESSION ID AND COOKIES
+The session ID is an OPAQUE REFERENCE as it does not contain any meaningful data, it's a random string. Only the server can related that session ID or string to the user data.
+
+The random string stored in a cookie and the cookie is usually SIGNED with a SECRET KEY. Therefore the CLIENT/USER cannot tamper with the cookie. Additionally the cookies can be protected with server side FLAGS.
+
+There are no real security concerns with a signed cookie. It doesn't need addtional encryption because it does NOT contain meaningfull data.
+
+Cookies are send with HTTP request in the header just like  content-type or authorization.
+
+Each cookie has key(name)-value pairs and can also contain attributes or flags. There are set in the browser through Set-Cookie by the server.
+
+Example Header of an http response:
+
+HTTP/1.1 200 OK
+Content-type: text/html
+Set-Cookie: sessionID=randomString; Domain=example.com; Path=/ 
+
+In a http request by the user the cookie is set in the cookie header.
+
+Attributes: DOMAIN and PATH restrict the use to a domain and for each route on that domain.
+A EXPIRATION date can be set manually if not it becomes a SESSION cookie, thus removed when the browser window is closed.
+
+Flags: 'HttpOnly' means the cookie cannot be read through JS on the client-side, making them unreachable for XSS attacks. The 'Secure' flag means the cookie can only be send over a HTTPS connection. The 'SameSite' flag means the cookie can only be sent from the same domain (no CORS sharing).
+
+D.	SECURITY CONCERNS
+Cross Site Request Forgery can be a problem for sessions. You can have unauthorized action by a authenticated user. This problem can be mitigated a seperate X-CSFR-token.

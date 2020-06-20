@@ -1,0 +1,127 @@
+####
+AJAX
+#################################
+I.	ABOUT AJAX
+II.	METHODS FOR MAKING REQUESTS
+III.	XMLHTTPREQUEST
+#################################
+
+
+################
+I.	ABOUT AJAX
+################
+
+Asynchronous Javascript And XML is an umbrella term for network requests from JavaScript. In practice the XML dataformat has been replaced by JSON, Javascript Object Notation.
+
+Before 2005, the tools were: html, css, js, dom manipulation and XMLHTTPrequest from the browser to the server.
+
+AJAX uses the same tools but uses them to update the webpage with new or dynamic content, WIHOUT the need for REFRESHING the page.
+
+Thus the extra layer of JS makes it possible to send and receive server data without interrupting the current page.
+
+A good example is PINTEREST or twitter that have an infinite scroll and without refereshing the page, new data is loaded in as you scroll near the bottom.
+
+
+#################################
+II.	METHODS FOR MAKING REQUESTS
+#################################
+
+In modern web-development XMLHttpRequest is used for three reasons:
+- Historical reasons: need to support existing scripts.
+- old browsers support
+- need something that fetch can’t do yet, e.g. to track upload progress.
+
+The FETCH API, is much easier than the XMLHTTPrequest but useless in IE and even firefox mobile.
+
+Third-party libaries JQUERY, AXIOS offer a simplified syntax.
+
+
+####################
+III.	XMLHTTPREQUEST
+####################
+
+XMLHttpRequest has two modes of operation: synchronous and asynchronous.
+
+ASYNCHRONOUS XMLHTTPREQUESTS
+1.	create a new instance
+
+let xhr = new XMLHttpRequest();
+
+2.	configure the request: 
+
+xhr.open(method, URL, [async, user, password])
+
+- httpmethod is usually 'GET or 'POST'
+- URL is a string 'http://requestdestination'
+- async is true by default, set to false for synchronous
+Open does NOT open a connection, that is done by xhr.send, open merely configures the request.
+ 
+3. 	send the request
+
+This method opens the connection and sends the request to server. The optional body parameter contains the request body. Some request methods like GET do not have a body. And some of them like POST use body to send the data to the server. 
+
+xhr.send([body])
+
+4. 	Listen to xhr events for response
+
+xhr.onload	
+//-> the request is completed and the response is fully downloaded (including possible 400 or 500 responses)
+
+You have access to properties:
+- xhr.status	(http status code) and xhr.statusText
+- xhr.response	server response body (or xhr.responseText)
+
+xhr.onprogress	
+//->  triggers periodically while the response is being downloaded
+
+xhr.onerror
+//-> the request couldn’t be made, e.g. invalid URL
+
+xhr.timeout = 10000;	
+//-> if no response after 10 sec request is cancelled
+
+READY STATE
+The .onreadystatechange method checks the changing state on every step of the way.
+
+You can log this with the .readyState method.
+
+0: UNSENT the .open() has not been called yet; 
+1: OPEN, the .open() has been called; 
+2: HEADERS_RECEIVED; 
+3: LOADING, responsetext is being downloaded; 
+4: DONE, operation complete.
+
+Check for the status code as well, as you need to foresee the possibility there is server connection problem.
+
+EXAMPLE
+
+let xhr = new XMLHttpRequest();
+xhr.open('GET', '<api-URL>');
+xhr.send()
+xhr.onreadystatechange = function(){
+  console.log(xhr.readyState);
+  if(xhr.readyState == 4 && xhr.status == 200){
+    console.log(xhr.responseText);
+  };
+};
+
+TRACK DOWNLOAD PROGRESS
+xhr.onprogress = function(event) {
+	if (event.lengthComputable) {
+    		console.log(`Received ${event.loaded} of 					${event.total} bytes`);
+  	} else {
+    		console.log(`Received ${event.loaded} bytes`); 
+		// no Content-Length header sent by server
+  	}
+};
+
+xhr.onload = function() {
+  alert(`Loaded: ${xhr.status} ${xhr.response}`);
+};
+
+
+PARSE INCOMING DATA
+The data is usually a JSON object sent as a string. To use in JS code you need to parse it to JS object. After that you can work with the various object properties.
+
+	let responseData = JSON.parse(xhr.responseText);
+	img.src = responseData.url;

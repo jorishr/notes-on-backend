@@ -1,0 +1,131 @@
+###########
+SQL QUERIES
+##################
+I.	INSERT
+II.	SELECT
+III.	UPDATE
+IV.	DELETE
+V.	TRANSACTIONS
+##################
+
+
+############
+I.	INSERT
+############
+
+To insert new entries you insert a new row into a table and specify the values for each column.
+
+	insert into <tablename> values (default, 'string', num);
+
+You can specify the column names but the number of columns you specify must match the number of values you enter:
+
+insert into <tablename> (id, name, age) values (default, 'string', num);
+
+MULTIPLE ROWS
+
+	insert into users (name, age, created_at) values ('name1', 34, now()),('name2',33, now()),('name3',23, now());
+
+
+############
+II.	SELECT
+############
+
+Retrieve or show the data in the table.
+
+	select * from <tablename>;	//-> all records
+
+	
+To limit the output to certain COLUMNS:
+
+	select name, age from <tablename>;
+
+
+CONDITIONAL STATEMENTS: WHERE
+
+The WHERE keyword can be used multiple times with the keyword AND
+
+	select * from <tablename> where age = '30';
+	select * from <tablename> where name = 'Joris' and where country = 'Spain';
+
+CONDITIONAL STATEMENTS: WHERE LIKE
+
+The LIKE keyword to search for parts of a string:
+
+	select ^ form <tablename> where <colum> like 'a%'
+
+SELECT * FROM users WHERE dept LIKE 'd%';
+SELECT * FROM users WHERE dept LIKE 'dev%';
+
+ORDER OUTPUT: ORDER BY
+
+Indicate the order with asc/desc
+
+	select * from <tablename> where country = 'Spain' order by age asc;	
+
+
+LIMIT OUTPUT: LIMIT 
+
+	select * from <tablename> where country = 'Spain' order by age asc limit 3;	
+	
+	//-> limits to three records
+
+
+############
+III.	UPDATE
+############
+
+UPDATE ENTIRE COLUMN
+
+This is dangerous because you will update all records in the table.
+
+	update <tablename> set <column> = value;
+
+	update users set age = 40;
+
+UPDATE A ROW/RECORD
+
+	update <tablename> where <column> = value set <column> = value;
+
+	update users where id = '22' set age = 34;
+	
+NOTE that In MARIADB the syntax is reversed:
+
+	update users set age = 34 where id = '22';
+
+
+############
+IV.	DELETE
+############
+
+DELETE A RECORD/ROW
+
+	delete from <tablename> where <column>=value;
+
+DROP COLUMN
+
+	alter table <tablename>
+	drop column <column>;
+
+
+##################
+V.	TRANSACTIONS
+##################
+
+Update and delete can destroy your database. ALWAYS double check those queries with a TRANSACTION. You can query the database without actually committing the changes.
+
+Also use transactions for BULK INSERTS. If you insert thousands of records at once, that means that the db has to reindex thousands of times in a row. By using transactions that reindex happens only once.
+
+	start transaction
+	delete from <tablename> where <column>=value;
+
+Check your changes.
+
+Rollback the changes if necessary:
+
+	rollback;
+
+If all is well COMMIT:
+	
+	commit;
+
+	

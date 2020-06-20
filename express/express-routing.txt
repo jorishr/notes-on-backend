@@ -1,0 +1,129 @@
+##################
+ROUTING IN EXPRESS
+###########################
+I.	BASIC ROUTING
+II.	ROUTES CODE STRUCTURE
+III.	ROUTES PARAMATERS
+###########################
+
+###################
+I.	BASIC ROUTING
+###################
+
+Routing refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and a specific HTTP request method (GET, POST, and so on).
+
+Each route can have one or more middleware and handler functions, which are executed when the route is matched.
+
+	app.METHOD(PATH, MIDDLEWARE, HANDLER)
+
+	app.get('/', isLoggedIn,(req, res) => console.log('hello'))
+
+NOTE: app is an instance of express(); method is an HTTP request method(get, post, put, delete, etc); path is a path on the server.
+
+	app.get('/', function (req, res) {
+ 		 res.send('Hello World!')
+	}) 
+
+###########################
+II.	ROUTES CODE STRUCTURE
+###########################
+
+Create seperate js files for each ROUTE and use the EXPRESS Router. You only have to export the router. 
+
+	router = express.Router()
+
+	swap app.<request> for router.<request>
+
+	module.objects = router;
+
+In the app.js require in the route files and indicate to Express to use each one of them:
+	
+	routeVar = require('routeFile');
+	app.use('<baseRoute>', routeVar);
+
+	app.use(indexRoutes);
+	app.use('/campgrounds/:id/comments', commentRoutes);
+	app.use('/campgrounds', campgroundRoutes);
+
+IMPORTANT
+
+The statements order is important. Put the routes at the bottom, after authentication.
+
+REFACTOR BASE ROUTES
+
+If you specify a baseRoute in the app.js you have to omit it in the individual route.js files.
+
+In the express app.js you will want to import various route files and thereby you can indicate the baseURL for each route.
+
+For example, the comments routes all start with /comments:
+	
+	app.use('/comments', commentsRoutes);
+
+In the individual route files you can now ommit the /comment and simply write '/new' or '/delete'
+
+IMPORTANT: doing so when using ID's for pages or posts might mean the ID's become inaccessible to other routes. Therefore in each route add MERGE PARAMS option to the express router:
+	
+	router = express.Router({mergeParams: true}),  
+
+HELPER FUNCTIONS
+
+On the same route you often have both a GET and POST request route. Those can be put into a helper function to make the code more readable.
+
+-> HELPERS.JS
+
+const db = require('../models');
+
+exports.getTodos = (req, res) => {
+    db.<Model>.find().then(fn(data){//do smth});
+     .catch(function(err){res.send(err);}); };
+
+exports.createTodos = (req, res) => {
+    db.<Model>.create(req.body)
+    .then(function(newData){res.status(201).json(newTodo)})
+    .catch(function(err){res.send(err)}); };
+
+-> ROUTES.JS
+
+const   express     = require('express'),
+        router      = express.Router(),
+        db          = require('../models'),
+        helpers      = require('../helpers/routeHelpers');
+
+router.route('/')
+    .get(helpers.getTodos)
+    .post(helpers.createTodos);
+
+#######################
+III.	ROUTES PARAMATERS
+#######################
+
+You can set up multiples routes patterns that correspond to folders, titles, id's or comments in the database that will be created at a later stage, either by the site administrator or the users.
+
+The pattern is defined by '/' and ':'
+	
+	app.get('/:page', (req, res) => {
+		console.log(req.params);
+		
+	:page paramater can be anything, it is a route that now	 	exists which may lead to /shop, /forum or whatever.
+	
+If you type in the browser /shop, the node console will log the request parameter as an object: 
+
+		{ page: "shop"}
+
+More complicated forum-like structure:
+
+	app.get('/:page/:topic/:post/:id', HANDLER)
+
+// ->	{ page: 'page', topic: 'topic', post: 'post', id: 'id' }
+
+NOTE: /football/ryan-giggs/tearing-you-apart/since1991 will be a valid route, BUT NOT /football or /football/ryan-giggs UNLESS they are specifically defined as well.
+
+{ page: 'football',
+  topic: 'ryan-giggs',
+  post: 'tearing-you-apart',
+  id: 'since1991' }
+
+To access the PARAMETER data coming from the request use: 
+
+req.params
+
