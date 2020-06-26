@@ -1,11 +1,11 @@
 # Routing in ExpressJs
 Table of contents
 - [Routing in ExpressJs](#routing-in-expressjs)
-	- [About routing](#about-routing)
-	- [Code organization](#code-organization)
-		- [Base routes](#base-routes)
-		- [Helper functions](#helper-functions)
-	- [Route parameters](#route-parameters)
+  - [About routing](#about-routing)
+  - [Code organization](#code-organization)
+    - [Base routes](#base-routes)
+    - [Helper functions](#helper-functions)
+  - [Route parameters / path variables](#route-parameters--path-variables)
 ## About routing
 Routing refers to determining how an application responds to a client request to a particular endpoint. An endpoint is a URI (or path) and a specific HTTP request method (GET, POST, and so on).
 
@@ -72,7 +72,7 @@ router.route('/')
     .get(helpers.getTodos)
     .post(helpers.createTodos);
 ```
-## Route parameters
+## Route parameters / path variables
 You can set up multiples routes patterns that correspond to folders, titles, id's or comments in the database that will be created at a later stage, either by the site administrator or the users.
 
 The pattern is defined by '/' and ':':
