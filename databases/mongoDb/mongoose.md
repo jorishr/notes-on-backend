@@ -9,6 +9,7 @@ Table of contents
 		- [Create](#create)
 	- [Read or retrieve data from the database](#read-or-retrieve-data-from-the-database)
 		- [Route parameter based on id retrieval](#route-parameter-based-on-id-retrieval)
+	- [Service classes](#service-classes)
 
 ## About ODM
 Mongoose is an Object Document Modeling (ODM) package which facilitates the database operations between the server framework ExpressJs and the MongoDb databse. It is a JS layer on top of MongoDB.
@@ -138,3 +139,11 @@ Final step on the ID-PAGE is access the `dataObject` and display the properties 
 <h1><%= dataObject.name %></h1>
 <p><%= dataObject.description %></p>
 ```
+## Service classes
+The functionality related to each model can be grouped into a Model class. Create a folder for services and instantiate each Model class in the index file.
+
+This may seem redundant for smaller projects but it keeps the database queries out of the route/controller functions. That we you have a better code structure that better ressembles the single responsability principle.
+
+For examples see:
+- [The boring but common server architecture](https://github.com/fChristenson/The-boring-server-architecture)
+- [Catacamp repo](https://github.com/jorishr/yelp-camp)

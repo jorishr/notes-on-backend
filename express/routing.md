@@ -44,7 +44,7 @@ app.use('/comments', commentsRoutes);
 ```
 In the individual route files you can now ommit the /comment and simply write  `/` , `new` or `/delete`.
 
-IMPORTANT: doing so when using ID's for pages or posts might mean the ID's become inaccessible to other routes. Therefore in each route add the MERGE PARAMS option to the express router:
+IMPORTANT: doing so when using ID's for pages or posts might mean the ID's become inaccessible to other routes, especially when using nestes routes as, for example, `campground/comments/:id` whereby alo the campground has an id route at `campgrounds/:id`. Preserve the `req.params values` from the parent router. If the parent and the child have conflicting param names, the child’s value take precedence. Therefore in each route add the MERGE PARAMS option to the express router:
 ```javascript
 const router = express.Router({mergeParams: true}),  
 ```
