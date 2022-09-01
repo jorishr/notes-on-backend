@@ -1,13 +1,13 @@
 # XMLHttpRequests
 Table of contents
 - [XMLHttpRequests](#xmlhttprequests)
-  - [Asynchronous XMLHttpRequests](#asynchronous-xmlhttprequests)
+  - [Asynchronous XMLHttpRequest](#asynchronous-xmlhttprequest)
   - [Track download progress](#track-download-progress)
   - [Parse incoming data](#parse-incoming-data)
 
 XMLHttpRequest has two modes of operation: synchronous and asynchronous.
 
-## Asynchronous XMLHttpRequests
+## Asynchronous XMLHttpRequest
 Example:
 ```javascript
 let xhr = new XMLHttpRequest();
@@ -38,7 +38,7 @@ You have now access to properties:
 - xhr.response server response body (or xhr.responseText)
 
 The `xhr.onprogress` method, triggers periodically while the response is being downloaded
-The `xhr.onerror` method trigegrs when the request couldn't be made, e.g. invalid URL
+The `xhr.onerror` method triggers when the request couldn't be made, e.g. invalid URL
 The `xhr.timeout = 10000;` can be set to cancel the request if no response after 10 sec
 
 The `.onreadystatechange` method checks the changing state on every step of the way. You can log this with the `.readyState` method:
@@ -46,7 +46,7 @@ The `.onreadystatechange` method checks the changing state on every step of the 
 0: UNSENT the .open() has not been called yet; 
 1: OPEN, the .open() has been called; 
 2: HEADERS_RECEIVED; 
-3: LOADING, responsetext is being downloaded; 
+3: LOADING, response text is being downloaded; 
 4: DONE, operation complete.
 ```
 Check for the status code as well, as you need to foresee the possibility there is server connection problem.

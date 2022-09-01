@@ -17,7 +17,7 @@ app.get('/', isLoggedIn, (req, res) => console.log('hello'))
 App is an instance of the `express();`. Method refers to an HTTP request method(get, post, put, delete, etc.). Path is a path on the server.
 
 ## Code organization
-Create seperate js files for each ROUTE and use the EXPRESS Router. You only have to export the router. 
+Create separate js files for each ROUTE and use the EXPRESS Router. You only have to export the router. 
 ```javascript
 const router = express.Router()
 router.get('/', (req, res) => console.log('hello'))
@@ -42,9 +42,9 @@ For example, the comments routes all start with `/comments`:
 const commentsRoutes = require('commentsRoutes.js')
 app.use('/comments', commentsRoutes);
 ```
-In the individual route files you can now ommit the /comment and simply write  `/` , `new` or `/delete`.
+In the individual route files you can now omit the /comment and simply write  `/` , `new` or `/delete`.
 
-IMPORTANT: doing so when using ID's for pages or posts might mean the ID's become inaccessible to other routes, especially when using nestes routes as, for example, `campground/comments/:id` whereby alo the campground has an id route at `campgrounds/:id`. Preserve the `req.params values` from the parent router. If the parent and the child have conflicting param names, the child’s value take precedence. Therefore in each route add the MERGE PARAMS option to the express router:
+IMPORTANT: doing so when using ID's for pages or posts might mean the ID's become inaccessible to other routes, especially when using nested routes as, for example, `campground/comments/:id` whereby alo the campground has an id route at `campgrounds/:id`. Preserve the `req.params values` from the parent router. If the parent and the child have conflicting param names, the child’s value take precedence. Therefore in each route add the MERGE PARAMS option to the express router:
 ```javascript
 const router = express.Router({mergeParams: true}),  
 ```
@@ -81,7 +81,7 @@ app.get('/:page', (req, res) => {
 	console.log(req.params);
 })	
 ```	
-THe `:page` paramater can be anything, it is a route that now exists which may lead to `/shop`, `/forum` or whatever.
+THe `:page` parameter can be anything, it is a route that now exists which may lead to `/shop`, `/forum` or whatever.
 	
 If you type in the browser `/shop`, the Node console will log the request parameter as an object: `{ page: "shop"}`.
 

@@ -11,7 +11,7 @@ A database is a collection of data with an interface that allows us to interact 
 MONGODB is a non-relational database. It has no tables and you can nest data. Plus not all objects need to have the same properties. It uses document collections.
 
 ## Setup
-On Windows it basically it runs from `c:\momgodb\bin` with the DEAMON `mongod.exe` and the TERMINAL `mongo.exe`.
+On Windows it basically it runs from `c:\mongodb\bin` with the *daemon* `mongod.exe` and the TERMINAL `mongo.exe`.
 
 ## Basic commands
 ```

@@ -49,14 +49,14 @@ Add a file src-sw.js along side the workbox-config.js in the root folder.
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.0.0/workbox-sw.js');
 
-Update the workox-config.js: "swSrc": "src-sw.js"
+Update the workbox-config.js: "swSrc": "src-sw.js"
 
 Inject the customizations after modifying the src-sw.js:
 
 `workbox injectManifest`
 
 ### What to cache
-Now you can add the customizations, you have to specfiy what to cache exactly. For exact syntax see Google Workbox documentation.
+Now you can add the customizations, you have to specify what to cache exactly. For exact syntax see Google Workbox documentation.
 
 You may need to refresh a couple of times to have things show up in the console.
 

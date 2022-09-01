@@ -12,7 +12,7 @@ REST is a convention for setting up route patterns that are easy to understand a
 What REST does is proving a format the HTTP request. It treats server objects as resources that can be created, updated or destroyed. For example a server object can be a blog post in a database. HTTP requests (get, post, put, delete) are used. The REST API structures the exact way this has to happen, using HTTP as protocol.
 
 ### Versioning
-Use versioning FLAGS for your own API's. This makes the code more maintainable and backwards compatible. If new features are implemented, you do so in v2 while v1 continous to work as before.
+Use versioning FLAGS for your own API's. This makes the code more maintainable and backwards compatible. If new features are implemented, you do so in v2 while v1 continuous to work as before.
 ```
 app.get('api/v1/create');
 app.get('api/v2/create');
@@ -31,7 +31,7 @@ Usually there 7 ROUTES:
 //  DESTROY         /page/:id    DELETE  delete in DB,redirect 
 ```
 ## Nested Routes
-Comments are a good example. They don't make much sense on their own. They are usually linked to a post or an item. Thus you don't create a seperate 8th route for comments. Instead you nest them.
+Comments are a good example. They don't make much sense on their own. They are usually linked to a post or an item. Thus you don't create a separate 8th route for comments. Instead you nest them.
 ```
 /page/post/:id/comments/new	-> form to create new comment
 /page/post/comments			-> update db and redirect

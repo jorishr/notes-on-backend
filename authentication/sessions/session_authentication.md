@@ -9,17 +9,17 @@ Table of contents
 		- [Statefulness](#statefulness)
 		- [Session id and cookies](#session-id-and-cookies)
 		- [Example](#example)
-		- [Security concers](#security-concers)
+		- [Security concerns](#security-concerns)
 ## Authentication and authorization
 There is authentication: verify IDENTITY, check whether the user is who he claims to be. (401 Unauthorized)
 
 Authorization: verify PERMISSIONS, whether an authenticated user can performs the action he wants to do.(403 Forbidden)
 
 ### Scheme
-Authentication schemes can either be a username/password scheme, a certificate sheme or token based scheme. 
+Authentication schemes can either be a username/password scheme, a certificate scheme or token based scheme. 
 
 ### State
-Statefull authentication is done with sessions and cookies.
+Stateful authentication is done with sessions and cookies.
 
 Stateless authentication with JWT, OAuth or others.
 
@@ -41,7 +41,7 @@ The session ID is an OPAQUE REFERENCE as it does not contain any meaningful data
 
 The random string stored in a cookie is usually SIGNED with a SECRET KEY. Therefore the CLIENT/USER cannot tamper with the cookie. Additionally the cookies can be protected with server side FLAGS.
 
-There are no real security concerns with a signed cookie. It doesn't need addtional encryption because it does NOT contain meaningfull data.
+There are no real security concerns with a signed cookie. It doesn't need additional encryption because it does NOT contain meaningful data.
 
 Cookies are send with each HTTP request in the header just like content-type or authorization.
 
@@ -60,5 +60,5 @@ Attributes: DOMAIN and PATH restrict the use to a domain and for each route on t
 
 Flags: 'HttpOnly' means the cookie cannot be read through JS on the client-side, making them unreachable for XSS attacks. The 'Secure' flag means the cookie can only be send over a HTTPS connection. The 'SameSite' flag means the cookie can only be sent from the same domain (no CORS sharing).
 
-### Security concers
-Cross Site Request Forgery can be a problem for sessions. You can have unauthorized action by a authenticated user. This problem can be mitigated a seperate X-CSFR-token.
+### Security concerns
+Cross Site Request Forgery can be a problem for sessions. You can have unauthorized action by a authenticated user. This problem can be mitigated a separate X-CSFR-token.

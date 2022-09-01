@@ -22,7 +22,7 @@ const session = require('express-session');
 app.use(session({
 	secret: 'randomString',
 	resave: false,
-	saveUnitialized: false
+	saveUninitialized: false
 }));
 ```
 ### The session object

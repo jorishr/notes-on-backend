@@ -26,7 +26,7 @@ const mailgun = require('mailgun-js');
 ```
 
 ## User data model
-Add the properties `resetPasswordToken (String)` and `resetPasswordExperis(Date)` to the User model. They are not part of a newly created document, because they are set only after a password reset request is submitted. Since we haven't specified default values, those properties will not be set when creating a new user. But they have be forseen your data model.
+Add the properties `resetPasswordToken (String)` and `resetPasswordExpires(Date)` to the User model. They are not part of a newly created document, because they are set only after a password reset request is submitted. Since we haven't specified default values, those properties will not be set when creating a new user. But they have be forseen your data model.
 
 ## Routes
 There are four routes in the password reset process:
@@ -38,7 +38,7 @@ There are four routes in the password reset process:
 ## Token generation and sending email
 The sequence of async code is provided by MAILGUN. First the Nodejs package CRYPTO is used to generate a token. 
 
-Next you have to find the user email in your database. If the record exists, then you add the token to the `foundUserObject` together with an expiration date. Save that new record in the databse.
+Next you have to find the user email in your database. If the record exists, then you add the token to the `foundUserObject` together with an expiration date. Save that new record in the database.
 
 Next you have the MAILGUN configuration where you can configure the email message.
 

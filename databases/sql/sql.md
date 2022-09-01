@@ -10,7 +10,7 @@ Table of contents
 		- [Index](#index)
 	- [Table options](#table-options)
 	- [Create new table](#create-new-table)
-		- [Create new databse](#create-new-databse)
+		- [Create new database](#create-new-database)
 		- [Create a new table](#create-a-new-table)
 			- [Example](#example)
 	- [Show and delete tables](#show-and-delete-tables)
@@ -21,7 +21,7 @@ Table of contents
 - [Common SQL Commands](https://gist.github.com/bradtraversy/c831baaad44343cc945e76c2e30927b3
 )
 ## About SQL
-An SQL based database uses the Structured Query Language (SQL). An opensource relational database system. The relational model of data means that all piece of information are related to one another through a structure of tables with columns and rows. 
+An SQL based database uses the Structured Query Language (SQL). An open-source relational database system. The relational model of data means that all piece of information are related to one another through a structure of tables with columns and rows. 
 
 Various tables are related through keys. 
 
@@ -30,7 +30,7 @@ Example of a row with columns:
 
 ## Data types
 Each field can hold different data-types. For each data-type there are multiple options that can have consequences for the data consumption.
-- numeric data: int (32-bit integer), bigint (64-bit integer), tinyint (8-bit integer), decimal, float (for scientific precision calculations). `Tinyint` may be statuscode 1-10 for example. With `decimal`(a,b) you have to specify the max number size of digits(a) of which (b) are after the decimal point. `Int` will show up in the table as `int(10)`. Int will always be able store a 32-bit integer. The number refers to the DISPLAY WIDTH, the maximum of digits that can be displayed. This is not very commonly used but if you would zeropad your numbers, one would be written as 9 zero's and 1 or 88 would be 0000000088.
+- numeric data: int (32-bit integer), bigint (64-bit integer), tinyint (8-bit integer), decimal, float (for scientific precision calculations). `Tinyint` may be statuscode 1-10 for example. With `decimal`(a,b) you have to specify the max number size of digits(a) of which (b) are after the decimal point. `Int` will show up in the table as `int(10)`. Int will always be able store a 32-bit integer. The number refers to the DISPLAY WIDTH, the maximum of digits that can be displayed. This is not very commonly used but if you would zero-pad your numbers, one would be written as 9 zero's and 1 or 88 would be 0000000088.
 
 - strings: `text` (max 64kb size), `mediumtext` (max 16mb size), `longtext`, `varchar` (variable length strings). With `varchar(50)` you need to specify a max length but it consumes the space of the actual length. Each row in mysql has a limited size and the varchar max you specify is taken into account there. `Text` on the other hand stores a pointer reference to the actual text stored not in the row but elsewhere.
 
@@ -84,7 +84,7 @@ NOTE:
 - commands are case INsensitive
 - table names and column names ARE case sensitive
 
-### Create new databse
+### Create new database
 ```
 create database <name>;
 
@@ -148,14 +148,14 @@ ALTER TABLE users ADD age VARCHAR(3);
 ```
 
 ## Normalizing data
-Normalize your data by keeping data seperated and use foreign keys to reference that data. Example of a blog: 
+Normalize your data by keeping data separated and use foreign keys to reference that data. Example of a blog: 
 ```
 posts table
 	-post_id
 	-title
 	-author_name
 ```
-This is problematic because adding additional author data means creating additional columns. And each time an author name changes you have to update all the related posts. Better use an `author_id` that reference the author data in a seperate table.
+This is problematic because adding additional author data means creating additional columns. And each time an author name changes you have to update all the related posts. Better use an `author_id` that reference the author data in a separate table.
 ```
 posts table
 	-post_id

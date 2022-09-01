@@ -1,5 +1,5 @@
 # URL Objects
-There are no networking methods that require exactly an object as Uniform Rersource Locator. The URL object can be passed to any method instead of a string, as most methods will perform the string conversion that turns a URL object into a string with full URL.
+There are no networking methods that require exactly an object as Uniform Resource Locator. The URL object can be passed to any method instead of a string, as most methods will perform the string conversion that turns a URL object into a string with full URL.
 
 In Javascript there is a URL constructor function: `const url = new URL(url, [base]);`
 
@@ -31,9 +31,9 @@ There's a standard RFC3986 that defines which characters are allowed in URLs and
 
 The good news is that URL objects handle all that automatically. We just supply all parameters unencoded, and then convert the URL to string. If we use a string though, we need to encode/decode special characters manually:
 ```javascript
-//For the entire url use ENCODEURI method: 
+//For the entire url use encodeURI method: 
 const url = encodeURI('http://site.com/??????');
-// for searchParams only use ENCODEURICOMPONENT
+// for searchParams only use encodeURIComponent
 const music = encodeURIComponent('Rock&Roll'); 
 const url = `https://google.com/search?q=${music}`;
 ```

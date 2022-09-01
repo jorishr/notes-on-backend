@@ -5,7 +5,7 @@ Table of contents
 		- [NPM dependencies](#npm-dependencies)
 	- [Express generator](#express-generator)
 	- [MVC: View](#mvc-view)
-		- [Templating engines](#templating-engines)
+		- [Template engines](#template-engines)
 			- [React](#react)
 			- [Embedded Js](#embedded-js)
 			- [Optional virtual path prefix](#optional-virtual-path-prefix)
@@ -13,13 +13,13 @@ Table of contents
 
 ## Basic setup
 ### NPM dependencies
-```
+```bash
 npm install --save
-	ejs 			// view engine
+	ejs 			# view engine
 	body-parser 	
 	request request-promise
 	method-override	
-	// to account for PUT & DELETE requests in HTML form method attribute
+	# to account for put & delete requests in HTML form method attribute
 ```
 In an app.js file, write the server code:
 ```javascript	
@@ -50,13 +50,13 @@ Automate the above with the generator.Specify the view engine, the css styleshee
 
 `npx express-generator --view=<engine> --css=sass --git <dir>`
 
-NOTE: the --css flag can be ommitted because the sass compilation within node /express is created for dev use only. 	Use Gulp or Webpack to handle that task. 	
+NOTE: the --css flag can be omitted because the sass compilation within node /express is created for dev use only. 	Use Gulp or Webpack to handle that task. 	
 The view files and basic server is pre-configured to run on `localhost:3000`.
 
 ## MVC: View
 Express is capable of handling SERVER-SIDE TEMPLATE ENGINES. Template engines allow us to add data to a view, and generate HTML dynamically. A template engine enables you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client. 
 
-### Templating engines
+### Template engines
 #### React
 You can render a React application server-side, using the `express-react-views package`. 
 ```javascript
@@ -103,7 +103,7 @@ By default Express looks for folders relative to the NPM root folder of the app.
 ```javascript
 app.use(express.static(path.join(__dirname, 'public')));
 ```
-A common folderstructure is to use a "public" folder where the main html, css and image files live.
+A common folder structure is to use a "public" folder where the main html, css and image files live.
 
 #### Optional virtual path prefix
 You can add a path that does not actually exist in the file system to hide the real location of your files.

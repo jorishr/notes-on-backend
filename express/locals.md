@@ -2,12 +2,12 @@
 ## Express or app.locals
 If you configure the object `app.locals` the key-value pairs persist throughout the life of the application and accessible on every route.
 
-This is simalar to the `res.locals` object properties that are valid only for the lifetime and scope of the request. They are available only to the view(s) rendered during that request / response cycle (if any).
+This is similar to the `res.locals` object properties that are valid only for the lifetime and scope of the request. They are available only to the view(s) rendered during that request / response cycle (if any).
 
-You can access local variables in templates rendered within the application. This is useful for application-level data (names, titles, etc.) and helper functions (momentjs). 
+You can access local variables in templates rendered within the application. This is useful for application-level data (names, titles, etc.) and helper functions (moment-js). 
 
 ## Example
-Make momentjs functions available on all views: 
+Make moment-js functions available on all views: 
 ```javascript
 app.locals.moment = require('moment'); 
 ```

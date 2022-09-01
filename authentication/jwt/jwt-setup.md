@@ -2,13 +2,13 @@
 Table of contents
 - [JWT in ExpressJs](#jwt-in-expressjs)
 	- [Reference example](#reference-example)
-	- [Pre-limimary steps](#pre-limimary-steps)
+	- [Preliminary steps](#preliminary-steps)
 	- [Initiate a JWT upon log-in](#initiate-a-jwt-upon-log-in)
 	- [Authorization middleware](#authorization-middleware)
 
 ## Reference example
 For a working example see my github: [JWT-Authorization](https://github.com/jorishr/jwt-authorization)
-## Pre-limimary steps
+## Preliminary steps
 - Basic express setup.
 - Basic route setup for API
 - Basic authentication setup (with login/logout)
@@ -19,7 +19,7 @@ For a working example see my github: [JWT-Authorization](https://github.com/jori
 Inside the LOGIN ROUTE:
 - get the username from `req.body.username` to create a user object
 - this user object is serialized as the payload with JWT, using the `TOKEN_SECRET` stored as environment variable.
-- store the result in a variable as the accesstoken
+- store the result in a variable as the access token
 ```javascript
 const accessToken = jwt.sign(user, TOKEN)
 res.json({accessToken: accessToken});

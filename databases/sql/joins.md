@@ -8,7 +8,7 @@ Table of contents
   - [Combining queries](#combining-queries)
 
 ## About joins
-A JOIN is the bringing together of two different tables with SOME RELATED data. You cannot store the data in a single table thus you keep them seperate. But when you need to display the data together you peform a JOIN.
+A JOIN is the bringing together of two different tables with SOME RELATED data. You cannot store the data in a single table thus you keep them separate. But when you need to display the data together you perform a JOIN.
 
 Prime example is POSTS and their COMMENTS. Posts are related to comments as ONE TO MANY: one post has many comments. Comments are related to posts as BELONGS TO, as a comment can only belong to one post.
 

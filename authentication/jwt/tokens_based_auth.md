@@ -2,7 +2,7 @@
 Table of contents
 - [JSON Web Tokens](#json-web-tokens)
   - [About JWT](#about-jwt)
-  - [Examening JWT](#examening-jwt)
+  - [Examining JWT](#examining-jwt)
   - [Refresh tokens](#refresh-tokens)
   - [Stateless vs stateful](#stateless-vs-stateful)
     - [Traditional stateless approach](#traditional-stateless-approach)
@@ -23,19 +23,19 @@ When a request is made by the user, the server verifies the JWT token it has sig
 
 Tokens should be short-lived. Since they cannot be stored securely, they have to be refreshed at an interval.
 
-## Examening JWT
+## Examining JWT
 ```
 'HTTP/1.1 200 OK
 Content-type: application/json
 Authorization: Bearer
 eyffsfsskdfjsslsjfsls.eyddfsfpskpfpwpeweepw.eopwweopwpoeopwopoe'
 ```
-The token has three parts seperated by a `.`: 
+The token has three parts separated by a `.`: 
 - header (metadata), 
 - payload (claims or data-attributes), 
 - and signature. 
 
-The token is URL ENCODED thus you can use the ATOB function in javascript to decode the content. Note that if the token starts with 'ey' you can infer it contains JSON data object as 'ey' in url encoding referes to "{".
+The token is URL ENCODED thus you can use the ATOB function in javascript to decode the content. Note that if the token starts with 'ey' you can infer it contains JSON data object as 'ey' in url encoding refers to "{".
 ```javascript
 atob(`token-header`);		
 //-> {"alg":"HS256", "typ": "JWT"}
@@ -51,7 +51,7 @@ The payload consist of:
 ## Refresh tokens
 Once a JWT is created, it does not expire unless you give it an expiration date. This means that a user that has logged in once, will be forever able to access the app data with that same token. This is not secure and therefore the initial tokens are set expire after x minutes.
 
-A refresh token is used to renew the access token. The refresh token is stored seperately, thus you revoke the base token every couple of minutes and the user needs to present the refresh token to continue to use the app.
+A refresh token is used to renew the access token. The refresh token is stored separately, thus you revoke the base token every couple of minutes and the user needs to present the refresh token to continue to use the app.
 
 The problem of a stolen token persists but you can invalidate the refresh token by creating a logout route.
 
@@ -59,7 +59,7 @@ The problem of a stolen token persists but you can invalidate the refresh token 
 ### Traditional stateless approach
 Tokens are NOT stored on the server, only generated once with the user payload and then send to client via the Authorization header. The client stores the token in plain text, thus unsecure, local storage 
 
-Each token is SIGNED by a secret to avoid tampering on the client-side and base64-url encoded. With each request by the user the server can verify the trustworthiness of the token. The userinfo is retrieved from the token.
+Each token is SIGNED by a secret to avoid tampering on the client-side and base64-url encoded. With each request by the user the server can verify the trustworthiness of the token. The user info is retrieved from the token.
 
 Refresh tokens are sent with the initial access token and expired or revoked tokens are maintained in a blacklist.
 

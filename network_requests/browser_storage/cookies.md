@@ -30,7 +30,7 @@ console.log(document.cookie)
 ```
 The value of `document.cookie` consists of a string of name=value pairs, delimited by ;. Each one is a separate cookie.
 
-When adding key-value pairs they all go into one string seperated by `;` and expiration dates need to be in the UTC string format. Each new instance of `document.cookie` creates a new cookie. To never expire, set a data far into the future.
+When adding key-value pairs they all go into one string separated by `;` and expiration dates need to be in the UTC string format. Each new instance of `document.cookie` creates a new cookie. To never expire, set a data far into the future.
 ```javascript
 document.cookie = 'name=John; expires=' + 'new Date(2020, 1, 1).toUTCString()'
 document.cookie = 'name=Eddy; expires=' + 'new Date(9999, 1,1).toUTCString()'
@@ -38,7 +38,7 @@ document.cookie = 'name=Eddy; expires=' + 'new Date(9999, 1,1).toUTCString()'
 
 ## Cookie options
 ### Path
-Set path to the `root: path=/` to make the cookie accessible from all website pages. If set to `path=/admin` the cookie is only visibile at that page and its subroutes.
+Set path to the `root: path=/` to make the cookie accessible from all website pages. If set to `path=/admin` the cookie is only visible at that page and its sub-routes.
 
 ### Domain
 By default, a cookie is accessible only at the domain that set it. Though not at subdomains. To include the subdomains explicitly set the domain option to: 
@@ -87,4 +87,4 @@ If we set a cookie that just saves some information, but neither tracks nor iden
 
 Usually there are two scenarios:
 - if a website wants to set tracking cookies for everyone, a modal will be used to require newcomers to agree.
-- if a website wants to set tracking cookies only for authenticated users, there is a checkbox upon signup.
+- if a website wants to set tracking cookies only for authenticated users, there is a checkbox upon sign-up.

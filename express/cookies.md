@@ -3,7 +3,7 @@ Parse the COOKIE header and populate `req.cookies` with an object keyed by the c
 
 Since version 1.5.0, the cookie-parser middleware no longer needs to be used for this module to work. This module now directly reads and writes cookies on req/res. 
 
-Using cookie-parser may result in issues if the secret is not the same between this module and cookie-parser. Thus, cookieparser is no longer needed when using express-session.
+Using cookie-parser may result in issues if the secret is not the same between this module and cookie-parser. Thus, cookie parser is no longer needed when using express-session.
 
 ## Response object
 The `res.cookie()` method will set, manipulate or clear cookies.

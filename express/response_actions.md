@@ -1,18 +1,18 @@
 # Response action to HTTP requests
 Table of contents
 - [Response action to HTTP requests](#response-action-to-http-requests)
-	- [Get request responsses](#get-request-responsses)
+	- [Get request responses](#get-request-responses)
 		- [Render a page](#render-a-page)
 		- [Respond with JSON](#respond-with-json)
 		- [Redirect](#redirect)
-		- [Dowload](#dowload)
+		- [Download](#download)
 	- [Post request responses](#post-request-responses)
 	- [Put and delete request responses](#put-and-delete-request-responses)
 		- [Update](#update)
 		- [Delete](#delete)
 	- [Set http headers](#set-http-headers)
 	
-## Get request responsses
+## Get request responses
 ### Render a page
 To render a page use a simple request handler function:
 ```javascript	
@@ -34,9 +34,9 @@ The destination can be:
 - an absolute url: 'https://anothersite.com'
 - an absolute path ('/go-there') on the same server
 - a relative path ('go-there'), ('..') or ('../page') to up one level
-- to go back with `res.redirect('back')` means go to the page listed in the HTTP header: Referer. If none is set, the default is the ('/') index route. 
+- to go back with `res.redirect('back')` means go to the page listed in the HTTP header: Referrer. If none is set, the default is the ('/') index route. 
 
-### Dowload
+### Download
 When using the `res.download` method you send a file attached to the http respons and instead of rendering the file on the page the browser will prompt the user to download the file. The implementation is simple:
 ```javascript
 //res.download('file', '<custom file name>', cb)
@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
 			res.render('page');
 ```
 ## Post request responses
-The reponses above are possible as well, but usually a post request means data is being submitted to the app or database. 
+The responses above are possible as well, but usually a post request means data is being submitted to the app or database. 
 
 Setup a `app.post()` route. You can test it with POSTMAN. If the route starts at a `/form` on a page you should add a subroute for submitting the form:
 ```	
@@ -71,14 +71,14 @@ To amend this, use the package METHOD OVERRIDE.
 app.use(methodOverride('_method')); 
 ```
 In the html you write:
-```	
+```js
 method="POST"
 action="/<route>?_method=PUT"
 action="/<route>?_method=DELETE"
 ```
 ### Update
-For the updating you sometimes want to display the original message or post on a seperate page. This requires finding the post id through a SHOW route. Plus, passing the content through an object that is displayed by adding a VALUE to the form INPUT element or TEXTAREA.
-```	
+For the updating you sometimes want to display the original message or post on a separate page. This requires finding the post id through a SHOW route. Plus, passing the content through an object that is displayed by adding a VALUE to the form INPUT element or TEXTAREA.
+```
 action="/<route>/<%= postData._id %>?_method=PUT"
 value="<%= postData.title %>">
 
@@ -120,8 +120,8 @@ router.delete('/:id', (req, res) => {
 ```
 
 ## Set http headers
-You can change any HTTP header value using: `res.set('Content-Type', '<type>');` or shorthand:
-```
+You can change any HTTP header value using: `res.set('Content-Type', '<type>');` or short hand:
+```js
 res.type('html')	//	-> text/html 
 res.type('json')	//	-> application/json
 res.type('png')		//	-> image/png

@@ -4,7 +4,7 @@ Table of contents
 	- [About ODM](#about-odm)
 	- [ExpressJs setup](#expressjs-setup)
 	- [Schema and models](#schema-and-models)
-	- [Save data to the databse](#save-data-to-the-databse)
+	- [Save data to the database](#save-data-to-the-database)
 		- [Save](#save)
 		- [Create](#create)
 	- [Read or retrieve data from the database](#read-or-retrieve-data-from-the-database)
@@ -12,7 +12,7 @@ Table of contents
 	- [Service classes](#service-classes)
 
 ## About ODM
-Mongoose is an Object Document Modeling (ODM) package which facilitates the database operations between the server framework ExpressJs and the MongoDb databse. It is a JS layer on top of MongoDB.
+Mongoose is an Object Document Modeling (ODM) package which facilitates the database operations between the server framework ExpressJs and the MongoDb database. It is a JS layer on top of MongoDB.
 
 You setup the connection in the ExpressJs app.js file and from then on the running app.js can perform CRUD operation on the database. You could do all this manually without an ODM package but that takes more code to write yourself.
 
@@ -38,7 +38,7 @@ To use the PROMISES syntax: `mongoose.Promise = Promise;`
 ## Schema and models
 The SCHEMA is the structure of your DOCUMENT OBJECTS and the MODEL is a class with which we construct documents.
 ```javascript
-//const ModelName = momgoose.model('ModelName', SchemaName);
+//const ModelName = mongoose.model('ModelName', SchemaName);
 //the 'ModelName' will be used as the name of the collection, pluralized. Thus 'Dog' becomes a collection DOGS 
 const nameSchema = new mongoose.Schema({
 	//set data type for each property
@@ -53,7 +53,7 @@ ModelName.create()
 ModelName.delete()
 ```
 
-## Save data to the databse
+## Save data to the database
 ### Save
 Each document can be saved to the database by calling its save method. Though in practice you will probably be using the CREATE route.
 ```javascript
@@ -62,7 +62,7 @@ const testDocument = new ModelName({
 });
 testDocument.save((err, savedData) => {
 	if (err) { return console.error(err); }
-	else { return console.log('Saved succesfully: ', savedData); }
+	else { return console.log('Saved successfully: ', savedData); }
 })
 // The callback function is necessary to confirm 
 ```
@@ -70,7 +70,7 @@ testDocument.save((err, savedData) => {
 ```javascript
 ModelName.create({newObject}, cbFn)
 ```	
-The `newObject` data will probably be retrieved from an input elemenent in a form with a NAME attribute. Those name attributes form part of the POST request and can be found in the body:
+The `newObject` data will probably be retrieved from an input element in a form with a NAME attribute. Those name attributes form part of the POST request and can be found in the body:
 ```javascript
 const newDataA = req.body.<nameAttributeA>
 const newDataB = req.body.<nameAttributeB>
@@ -80,7 +80,7 @@ const newObject = {<name>: newDataA, <name>: newDataB}
 ```
 The callback function has two parameters: the error and the `dataObject` that is being stored in the database. You can name it as you please.
 
-If the data is created succesfully you can specify actions, for example: 
+If the data is created successfully you can specify actions, for example: 
 - send the user back to the original page
 - console.log
 - show feedback to user on the same page, etc.
@@ -88,7 +88,7 @@ If the data is created succesfully you can specify actions, for example:
 (err, savedData) => {
 	if(err){ console.log(err) }
 	else {
-		console.log('Succesfully added to DB:\n', newDataEntry);
+		console.log('Successfully added to DB:\n', newDataEntry);
 		res.redirect('/');
 	}
 }
@@ -102,12 +102,12 @@ ModelName.find({dataToShow}, cb)
 	
 ModelName.find({name: 'example'}, cb)
 
-//IMPORTANT! The callback function has the same double function as above: error reporting and ACTIONS to be take upon succesfull retrieval of data from the db. The retrieved data will be an object that we call 'foundData'
+//IMPORTANT! The callback function has the same double function as above: error reporting and ACTIONS to be take upon successfully retrieval of data from the db. The retrieved data will be an object that we call 'foundData'
 
 (err, foundData) => {
 	if(err){console.log(err)}
 	else {
-		res.render('page', {key: founData})
+		res.render('page', {key: foundData})
 		//pass the retrieve info to rendered page
 	}
 }
@@ -129,8 +129,8 @@ app.get('/page/:id', (req, res){})
 To use the ID to find a SPECIFIC document in the DB and display it on the page MONGOOSE has a METHOD called findById(). To know which ID to look for in the DB you look inside the GET REQUEST PARAMETERS and pass is to the findById() method:
 ```javascript	
 app.get('/page/:id', (req, res)=>{
-	ModelName.findById(req.params.id, (err, founData) => {
-		res.render('id-page', {dataObject: founData})
+	ModelName.findById(req.params.id, (err, foundData) => {
+		res.render('id-page', {dataObject: foundData})
 	})		
 })
 ```
@@ -142,7 +142,7 @@ Final step on the ID-PAGE is access the `dataObject` and display the properties 
 ## Service classes
 The functionality related to each model can be grouped into a Model class. Create a folder for services and instantiate each Model class in the index file.
 
-This may seem redundant for smaller projects but it keeps the database queries out of the route/controller functions. That we you have a better code structure that better ressembles the single responsability principle.
+This may seem redundant for smaller projects but it keeps the database queries out of the route/controller functions. That we you have a better code structure that better resembles the single responsibility principle.
 
 For examples see:
 - [The boring but common server architecture](https://github.com/fChristenson/The-boring-server-architecture)

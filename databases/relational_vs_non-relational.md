@@ -20,13 +20,13 @@ The flexibility of a non-relational db means that:
 - you can add fields as you go
 
 ### Relations
-Relations are established between tables by QUERIES or JOINS. When for example the user data changes, you don't need to update the product history data, as it is stored in a seperate table. 
+Relations are established between tables by QUERIES or JOINS. When for example the user data changes, you don't need to update the product history data, as it is stored in a separate table. 
 
 In a non-relational database, however, you may have duplicate data that may have to be updated in various places.
 
-This is one reason why non-relational databases are considered to be faster or more efficient with large volumes of READ queries and relational databases have the advantage on large volumes of WRITE queries.
+This is one reason why non-relational databases are considered to be faster or more efficient with large volumes of *read queries* and relational databases have the advantage on large volumes of *write queries*.
 
 ### Scaling
-Horizontal scaling on relational databases is near impossible as seperating and merging the data over multiple servers is very hard to do. You can scale vertically by adding more computational power to the existing server, but that too has its limits.
+Horizontal scaling on relational databases is near impossible as separating and merging the data over multiple servers is very hard to do. You can scale vertically by adding more computational power to the existing server, but that too has its limits.
 
 In a non-relational database there are no relations and various collections can be spread over multiple servers. Thus NoSQL databases are the preferred choice for large or ever-changing data sets.

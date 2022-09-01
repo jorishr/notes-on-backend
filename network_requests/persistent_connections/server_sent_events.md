@@ -1,15 +1,15 @@
-# Webworkers and server sent events
+# Web workers and server sent events
 Table of contents
-- [Webworkers and server sent events](#webworkers-and-server-sent-events)
-  - [Webworkers](#webworkers)
+- [Web workers and server sent events](#web-workers-and-server-sent-events)
+  - [Web workers](#web-workers)
   - [SSE](#sse)
-## Webworkers 
-Webworkers zijn Javascript modules die in de achtergrond lopen zonder dat dat invloed heeft op de rest van de pagina. 
+## Web workers 
+Web workers zijn Javascript modules die in de achtergrond lopen zonder dat dat invloed heeft op de rest van de pagina. 
 
 ## SSE
 Server-Sent Events specification describes a built-in class EventSource, that keeps connection with the server and allows to RECEIVE events from the server through a persistent connection.
 
-It is less powerfull than the WEBSOCKET protocol (can only receive text, not binary data) and is ideal for one directional server sent updates such as news feeds, stock markets, livescores, etc. 
+It is less powerful than the WEBSOCKET protocol (can only receive text, not binary data) and is ideal for one directional server sent updates such as news feeds, stock markets, live-scores, etc. 
 
 Also it supports auto-reconnect with retry timeout, something we need to implement manually with WebSocket. 
 

@@ -55,7 +55,7 @@ const User = mongoose.model('User', UserSchema);
 ```
 Passport-Local-Mongoose will add a username, hash and salt field to store the username, the hashed password and the salt value. Additionally Passport-Local-Mongoose adds some methods to your Schema. See the API Documentation section for more details.
 
-NOTE: this is similar to creating other datastructures with Mongoose. The only difference the use of the plugin.
+NOTE: this is similar to creating other data structures with Mongoose. The only difference the use of the plugin.
 
 #### Configure PassportJs
 The order of statements is important:
@@ -85,7 +85,7 @@ The register POST route stores the form data in the database by creating a new U
 router.post('/register', (req,res) => {	
 	User.register(new User({}), req.body.password, (err)=>{})
 ```
-The `User.register` is a mongoose method which takes in two parameters and the callback function. First you call the User constructor and pass in the form data. Second is the password which is stored seperately. In the callback function you define what to do next, for example auto-login the new user or send a confirmation e-amil and redirect the user.
+The `User.register` is a mongoose method which takes in two parameters and the callback function. First you call the User constructor and pass in the form data. Second is the password which is stored separately. In the callback function you define what to do next, for example auto-login the new user or send a confirmation e-mail and redirect the user.
 
 The form data can be accessed on the `req.body.<name>` and it is best to add VALIDATION and SANITIZATION to it first before storing it in the database.
 ```javascript
@@ -96,7 +96,7 @@ The form data can be accessed on the `req.body.<name>` and it is best to add VAL
 	email:      req.body.email,
 }
 ```
-By default there is no usefull feedback for the user to see if the registering or login was succesfull or not, other than redirecting back to the form or to another page. You can amend that by passing the error message to page rendering where you add this dynamically through ejs: `if(err.message){//show some html}` or it could be handled by Flash messages if installed.
+By default there is no useful feedback for the user to see if the registering or login was successful or not, other than redirecting back to the form or to another page. You can amend that by passing the error message to page rendering where you add this dynamically through ejs: `if(err.message){//show some html}` or it could be handled by Flash messages if installed.
 ```
 if(err){
 	return res.render('register', {'error': err.message});}

@@ -7,7 +7,7 @@ Table of contents
 	- [API Endpoint URI's](#api-endpoint-uris)
 	- [Request API data](#request-api-data)
 		- [API Requests through NodeJs](#api-requests-through-nodejs)
-		- [API Auhtentication](#api-auhtentication)
+		- [API Authentication](#api-authentication)
   
 ## About Restful API's
 API is an Application Program Interface. The waiter that delivers the request from the client to the server in a specified format and returns information to the client in a specified format.
@@ -49,7 +49,7 @@ request(url, function(error, response, body){})
 	
 rp(url).then((body) =>{}).catch((err) =>{})
 ```
-The data from the server reponse has a HEADER and a BODY, just as the http request to the server. To access the data we need to look into the BODY.
+The data from the server response has a HEADER and a BODY, just as the http request to the server. To access the data we need to look into the BODY.
  
-### API Auhtentication
+### API Authentication
 Through clientId and tokens. See documentation for each API. You basically add a token string to each HTTP request that identifies the client.

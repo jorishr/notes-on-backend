@@ -21,10 +21,10 @@ Campground.find(
 	{$or:[
             {'name': regex},
             {'location': regex},
-            {'author.usernam': regex}
+            {'author.username': regex}
         ]}
 ```
-IMPORTANT: to search inside multiple object properties use the MongoDB operator: `$or: []` which expects an array of idenitfier objects.
+IMPORTANT: to search inside multiple object properties use the MongoDB operator: `$or: []` which expects an array of identifier objects.
 
 ## Rendering search results
 To render the search result on the page you have to pass the array of found objects to the HTML template.

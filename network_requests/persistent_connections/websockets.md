@@ -1,7 +1,7 @@
 # Websockets
 Table of contents
 - [Websockets](#websockets)
-	- [About Websockets](#about-websockets)
+	- [About Web sockets](#about-web-sockets)
 	- [The Websocket Protocol](#the-websocket-protocol)
 	- [Creating a Websocket connection](#creating-a-websocket-connection)
 	- [Data transfer](#data-transfer)
@@ -9,7 +9,7 @@ Table of contents
 		- [Close connections](#close-connections)
 	- [NGINX Setup for Websockets](#nginx-setup-for-websockets)
 
-## About Websockets
+## About Web sockets
 WebSockets are an alternative to HTTP communication in Web Applications. They offer a persistent, bidirectional communication channel between client and server. Once established, the channel is kept open, offering a very fast connection with low latency and overhead.
 
 WebSockets are great for real-time and long-lived communications. HTTP is great for occasional data exchange and interactions initiated by the client.

@@ -5,9 +5,9 @@ Table of contents
 	- [Select](#select)
 
 ## Insert
-To insert new entries you insert a new row into a table and specify the values for each column: `insert into <tablename> values (default, 'string', num);`
+To insert new entries you insert a new row into a table and specify the values for each column: `insert into <table name> values (default, 'string', num);`
 
-You can specify the column names but the number of columns you specify must match the number of values you enter: `insert into <tablename> (id, name, age) values (default, 'string', num);`
+You can specify the column names but the number of columns you specify must match the number of values you enter: `insert into <table name> (id, name, age) values (default, 'string', num);`
 Insert multiple rows:
 ```SQL
 insert into users (name, age, created_at) values ('name1', 34, now()),('name2',33, now()),('name3',23, now());
@@ -24,16 +24,16 @@ To limit the output to certain COLUMNS:
 select name, age from <tablename>;
 ```
 
-### Condtional statements: WHERE, AND
+### Conditional statements: WHERE, AND
 The WHERE keyword can be used multiple times with the keyword AND
 ```
 select * from <tablename> where age = '30';
 select * from <tablename> where name = 'Joris' and where country = 'Spain';
 ```
-### Condtional statements: WHERE LIKE
+### Conditional statements: WHERE LIKE
 The LIKE keyword to search for parts of a string:
 ```
-select * from <tablename> where <colum> like 'a%'
+select * from <tablename> where <column> like 'a%'
 SELECT * FROM users WHERE dept LIKE 'd%';
 SELECT * FROM users WHERE dept LIKE 'dev%';
 ```
@@ -60,7 +60,7 @@ update users set age = 40;
 //update <tablename> where <column> = value set <column> = value;
 update users where id = '22' set age = 34;
 	
-//note that in some SQL databases the syntax is reversed, MARIADB:
+//note that in some SQL databases the syntax is reversed, MariaDB:
 update users set age = 34 where id = '22';
 ```
 ## Delete

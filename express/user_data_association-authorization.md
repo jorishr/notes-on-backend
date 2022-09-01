@@ -46,7 +46,7 @@ let author = {id: req.user._id, username: req.user.username}
 let newModel = {author: author, name: name}
 <Model>.create({newModel}, (err, newData) => {})
 ```
-Thus we store part of the users data INSIDE the comment data instead of looking it up everytime a comment is called from the db. This can only be done in a db like MongoDb.
+Thus we store part of the users data INSIDE the comment data instead of looking it up every time a comment is called from the db. This can only be done in a db like MongoDb.
 
 Since the `author.id` and `author.username` are now part of the new object you can easily call it to show up in the HTML page as any other property such as title or description:
 `<%= comment.author.username %>`.
@@ -74,7 +74,7 @@ Wrap the links or buttons into a similar middleware if statement.
 ```
 	<% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
 ```
-Only if the ID's match the buttons will be showns. In the HTML there is no access to `req.user._id` but in the PassportJS configuration a CURRENTUSER OBJECT is present and that is made availble on all routes in the app.js. Thus it can be used in the comparison.
+Only if the ID's match the buttons will be shown. In the HTML there is no access to `req.user._id` but in the PassportJS configuration a *currentUser object* is present and that is made available on all routes in the app.js. Thus it can be used in the comparison.
   
 If user is not logged-in the `currentUser` value will be `undefined` and an error will thrown. Therefore you add the `currentUser &&`.
 
@@ -100,7 +100,7 @@ When creating a new User in the post route, add this property to the new user ob
 ```javascript
 User.register(new User({username: req.body.username, isAdmin: false})
 ```
-Now there are two more steps: make the buttons visible in HTML and update the middleware to extend functionaity to `isAdmin` user.
+Now there are two more steps: make the buttons visible in HTML and update the middleware to extend functionality to `isAdmin` user.
 
 Middleware: the conditional in the if statement checks for matching ID's between user and reference in the `dataObject`. Add an `||` statement to check for `req.user.isAdmin`:
 ```javascript
@@ -109,4 +109,4 @@ if(foundCommentData.author.id.equals(req.user._id) || req.user.isAdmin)
 In HTML swap the `req.user` for `currentUser && currentUser.isAdmin`
 
 ## Cascade delete
-When a `dataObject` is deleted probably it is a good idea to also remove related data that is referenced inside that dataObject. A good example are the Campgrounds and the comments that are related to each Campground. Those comments are stored in a seperate data collection in the db but are referenced inside each Campground dataObject as an array of comment references.                   
+When a `dataObject` is deleted probably it is a good idea to also remove related data that is referenced inside that dataObject. A good example are the Campgrounds and the comments that are related to each Campground. Those comments are stored in a separate data collection in the db but are referenced inside each Campground dataObject as an array of comment references.                   

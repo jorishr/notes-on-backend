@@ -4,7 +4,7 @@ Table of contents
 	- [About Back-end](#about-back-end)
 		- [Common tasks and features](#common-tasks-and-features)
 		- [Back-end Structure](#back-end-structure)
-	- [HTTP Request-Reponse Cycle](#http-request-reponse-cycle)
+	- [HTTP Request-Response Cycle](#http-request-response-cycle)
 		- [HTTP](#http)
 		- [HTTP GET Request examination](#http-get-request-examination)
 			- [Query Strings](#query-strings)
@@ -12,7 +12,7 @@ Table of contents
 ## About Back-end
 ### Common tasks and features
 - check if a user is logged in, based on that condition send different type of html/css/JS
-- on the server: signup a new user, add new post to database, create new comment
+- on the server: sign-up a new user, add new post to database, create new comment
 - on the database: remove post/comment, sort posts/comments 
 
 ### Back-end Structure
@@ -22,7 +22,7 @@ Once the server is started, it will be listening for HTTP requests coming from a
 3. Routing setup (routes to pages)
 
 
-## HTTP Request-Reponse Cycle
+## HTTP Request-Response Cycle
 A certain type of request is made to the server (get, post, patch, copy, delete, etc.) by either the browser, command line (NodeJs), app (Postman), etc. The server processes this request and sends back a response. For example: retrieve the google.com homepage is a GET request. What you get back is HTML/CSS/JS combo code which the browser shows a usable page.
 
 POST requests is when you submit new information to a server, thus alongside the http request you send additional data, for example, a comment, a picture, etc. PUT and PATCH are to update or edit existing data.
@@ -42,7 +42,7 @@ HTTPS adds a secure encryption to each http cycle using SSL or TLS. SSL: secure 
 In this example we use the Postman app but under the network tab in chrome dev tools you can find similar information. 
 
 The GET request for google.com produces a response from the google servers that contains:
-- body: raw code (containing html, css, js), same as thepage source you can access in the browser
+- body: raw code (containing html, css, js), same as the page source you can access in the browser
 - headers (12): metadata about the response containing timestamp, content-type
 - status (200 OK): the status codes are part of the http protocol, if a page is not found on the server you get a 404 error code.
 
@@ -54,7 +54,7 @@ Get is only used to retrieve info from the server and thus we do not send data w
 https://www.reddit.com/search?q=test1%20test2&city=bcn
 https://www.reddit.com/search?q=tower&structure=bridge
 %20 	//-> is a space
-& 		//-> seperates the different queries
+& 		//-> separates the different queries
 ```
 Thus when such a GET request is made, the server is programmed to work with those requests by running a specific code. For example, code that searches for keywords inside an array of objects.
 ```HTML

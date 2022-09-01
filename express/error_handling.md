@@ -29,7 +29,7 @@ app.get("/", function (req, res, next) {
   });
 });
 ```
-If you pass an error to next() the built-in error handler of ExpressJs will handle the error. Alternatively, you can use custom error-handling middeleware (see next section).
+If you pass an error to next() the built-in error handler of ExpressJs will handle the error. Alternatively, you can use custom error-handling middleware (see next section).
 
 ## Custom error-handling middleware
 The process:
@@ -59,7 +59,7 @@ app.get('*', function(req, res, next) {
 	let err = new Error(`${req.ip} tried to reach ${req.originalUrl}`); 
 	err.statusCode = 404;
 	err.shouldRedirect = true;
-// shouldRedict: set this to true and use it as condition in the middleware:
+// shouldRedirect: set this to true and use it as condition in the middleware:
 	if (!err.statusCode){
 		err.statusCode = 500;
 	}; 
@@ -75,7 +75,7 @@ If no `err.statusCode` is set, set the generic 500;
 
 
 ## Code organization
-You can write a seperate error.js file with multiple functions for different type of errors.
+You can write a separate error.js file with multiple functions for different type of errors.
 When not calling the next() method in a custom error-handling function, you are responsible for writing (and ending) the response with `res.render()`. Otherwise those requests will 'hang' and will not be eligible for garbage collection by the default express error handling.
 ```javascript
 app.use(logErrors);

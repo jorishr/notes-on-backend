@@ -25,7 +25,7 @@ crossorigin="anonymous"
 //-> access allowed if the server responds with the header Access-Control-Allow-Origin with * or our origin. The browser does not send authorization information and cookies to remote server.
 
 crossorigin="use-credentials" 
-//-> access allowed if the server sends back the header Access-Control-Allow-Origin with our origin and ccess-Control-Allow-Credentials is set to true. The browser sends authorization information and cookies to remote server.
+//-> access allowed if the server sends back the header Access-Control-Allow-Origin with our origin and Access-Control-Allow-Credentials is set to true. The browser sends authorization information and cookies to remote server.
 ```
 ## CORS Requests
 The core concept here is origin: a domain/port/protocol triplet. If a request is cross-origin, the browser always adds the ORIGIN HEADER to it with the correct domain/port/protocol.
@@ -39,10 +39,10 @@ The browser plays the role of a trusted mediator here:
 There is a difference between SIMPLE requests (GET, POST or HEAD) and non-simple requests. The practical difference is that simple requests are sent right away, with Origin header, while for the other ones the browser makes a preliminary 'preflight' request, asking for permission.
 
 ## CORS in ExpressJs
-To allow CORS you can set the allowed origins in the http headers. You explicitely allow certain domains and all others are rejected, thereby preventing a cross site request forgery attack.
+To allow CORS you can set the allowed origins in the http headers. You explicitly allow certain domains and all others are rejected, thereby preventing a cross site request forgery attack.
 
 ExpressJs has the CORS package available that serves as middleware:
 ```
 app.get('/', cors(), (req,res) => {})
 ```
-See documentation for implimentation details.
+See documentation for implementation details.

@@ -20,13 +20,13 @@ To access a stored local storage property value we only have to be on the same o
 
 The local storage is bigger than cookie-storage, 5MB/domain vs 4kb/cookie. However, we are limited to plain text string data that needs to be SERIALIZED. Thus it is unsecure by design. Scripts and thus XSS attacks can access it, steal tokens and impersonate users.
 
-LocalStorage should only be used for public non-sensitive string data. It does not have off-line capabilities, thus not suitable for webworkers in PWA's.
+LocalStorage should only be used for public non-sensitive string data. It does not have off-line capabilities, thus not suitable for web workers in PWA's.
 
 ## Session Storage
 Properties and methods are the same as in local storage, but it's much more limited. The session storage exists only within the current browser tab, another tab with the same page will have a different storage. The data survives page refresh, but not closing/opening the tab.
 
 ## Example: Text-area
-A text-area that stores the input you are typing into local storage. Thus, if you accidently close the window, your data will still be there.
+A text-area that stores the input you are typing into local storage. Thus, if you accidentally close the window, your data will still be there.
 ```HTML
 <textarea 	style="width:200px; height: 60px;" 
 			id="area" placeholder="Write here">

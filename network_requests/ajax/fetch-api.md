@@ -2,7 +2,7 @@
 Table of contents
 - [Fetch API](#fetch-api)
 	- [About Fetch API](#about-fetch-api)
-		- [Async/await example](#asyncawait-example)
+		- [Async / await example](#async--await-example)
 		- [Promise example](#promise-example)
 		- [Response processing methods](#response-processing-methods)
 		- [Response headers](#response-headers)
@@ -10,10 +10,10 @@ Table of contents
 	- [Post requests](#post-requests)
 	- [Form Data Object](#form-data-object)
 		- [Example](#example)
-	- [Track donwload progress](#track-donwload-progress)
+	- [Track download progress](#track-download-progress)
 	- [Fetch Options](#fetch-options)
-		- [Referer](#referer)
-		- [Referer policy](#referer-policy)
+		- [Referrer](#referrer)
+		- [Referrer policy](#referrer-policy)
 
 ## About Fetch API
 The browser starts the request right away and returns a PROMISE that the calling code should use to get the result.
@@ -30,7 +30,7 @@ response.ok		//-> true if HTTP-status is 200-299
 ```
 - Access the response body by using an additional method call. We can choose only one body-reading method. If we've already got the response with `response.text()`, then `response.json()` won't work. The body content can only be processed once.
 
-### Async/await example
+### Async / await example
 ```javascript
 (async () => {
 	let response = await fetch(url);		//-> promise
@@ -51,7 +51,7 @@ fetch(url)
 .catch(err){console.log(err)};
 ```
 ### Response processing methods
-```
+```JS
 response.text() 		
 //-> read the response and return as text
 response.json() 		
@@ -64,7 +64,7 @@ response.body
 response.blob() 		
 //-> return the response as binary data
 response.arrayBuffer() 
-//-> return the response as ArrayBuffer, a low-level representaion of binary data
+//-> return the response as ArrayBuffer, a low-level representation of binary data
 ```
 ### Response headers
 The response headers are available in a Map-like headers object in `response.headers`.
@@ -146,7 +146,7 @@ formElem.onsubmit = async (e) => {
 };
 ```
 
-## Track donwload progress
+## Track download progress
 To track download progress, we can use the `response.body` property as it has a `ReadableStream`, a special object that provides body chunk-by-chunk, as it comes. 
 
 Readable streams are described in the Streams API specification.
@@ -155,16 +155,16 @@ See [Fetch progress](https://javascript.info/fetch-progress)
 
 
 ## Fetch Options
-### Referer
+### Referrer
 Usually that header is set automatically and contains the url of the page that made the request. 
 
 You may want to remove the referrer by setting it to empty string.
 ```javascript
 fetch('<url>', {
-	referrer: "" //-> no Referer header });
+	referrer: "" //-> no Referrer header });
 ```
-### Referer policy
-The referrerPolicy option sets general rules for Referrer. By default FETCH always sends the Referer header with the full url of our page (except when we request from HTTPS to HTTP, then no Referer).
+### Referrer policy
+The referrerPolicy option sets general rules for Referrer. By default FETCH always sends the Referrer header with the full url of our page (except when we request from HTTPS to HTTP, then no Referrer).
 
 If you have an admin page that should not be visible to the outside world you may restrict the referrer policy to referrerPolicy: `origin-when-cross-origin` so that only the domain is visible, not the full page url.
 

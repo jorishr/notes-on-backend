@@ -35,7 +35,7 @@ check('name').isLength({min:3, max:10}).isAlpha('nl-NL');
 
 check().isAlpha.withMessage('Must be only alphabetical chars');
 	
-check().isLenght.withMessage('Must be at least 10 chars long')
+check().isLength.withMessage('Must be at least 10 chars long')
 
 /*
 Custom validator:
@@ -65,7 +65,7 @@ Whereby `trim()` trims characters (whitespace by default) at the beginning and a
 
 The other way is tp sanitize the entire `req.body` element using EXPRESS_SANITIZER package, whereby you set the `req.body` object to be a sanitized version of it before calling database operation methods.
 ```javascript
-cosnt sanitizer = require('express-sanitizer'),
+const sanitizer = require('express-sanitizer'),
 
 req.body.blogPost.body = req.sanitize(req.body.blogPost.body);
 
@@ -74,4 +74,4 @@ BlogPost.create(req.body.blogPost, (err, savedData) => {})
 See docs of both packages for more details.
 
 ## Cross site scripting attack
-When using `.innerHTML` on user input, switch to `.innerText`. Or you need to pass that into a string first. So that `<img src onerror="<mailicious code>">` gets rendered a string.
+When using `.innerHTML` on user input, switch to `.innerText`. Or you need to pass that into a string first. So that `<img src onerror="<malicious code>">` gets rendered a string.

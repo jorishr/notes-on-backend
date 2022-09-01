@@ -41,7 +41,7 @@ Of no parameters are past, as in the `getUsers()`, then no queryString is produc
 - the first value: "userId", the second value the id number of the user
 - the queryString we need: `userId=<userNumberId>`
 - map over the arrays and return the queryString
-- all the different user queryString need to be joined together into one string again and with the & as seperator. Thus you get:
+- all the different user queryString need to be joined together into one string again and with the & as separator. Thus you get:
 
 `https://jsonplaceholder.typicode.com/posts?userId=1&userId=2&userId=3...etc`
 
